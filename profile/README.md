@@ -12,7 +12,7 @@
   <a href="https://www.npmjs.com/package/@verbatra/cli"><img src="https://img.shields.io/npm/v/@verbatra/cli?label=%40verbatra%2Fcli" alt="@verbatra/cli npm version" /></a>
   <a href="https://www.npmjs.com/package/@verbatra/sdk"><img src="https://img.shields.io/npm/v/@verbatra/sdk?label=%40verbatra%2Fsdk" alt="@verbatra/sdk npm version" /></a>
   <a href="https://www.npmjs.com/package/@verbatra/studio"><img src="https://img.shields.io/npm/v/@verbatra/studio?label=%40verbatra%2Fstudio" alt="@verbatra/studio npm version" /></a>
-  <a href="https://github.com/mariokreitz/verbatra/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
+  <a href="https://github.com/verbatra/verbatra/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
 </p>
 
 ## What verbatra is
@@ -42,11 +42,11 @@ verbatra is open source under the MIT license.
 ## Where the code lives
 
 The engine (the CLI, the SDK, and Studio) is developed in the monorepo at
-[github.com/mariokreitz/verbatra](https://github.com/mariokreitz/verbatra). That
+[github.com/verbatra/verbatra](https://github.com/verbatra/verbatra). That
 is where issues about translation behavior, formats, providers, and the CLI
 belong.
 
-This organization currently hosts one repository,
+This organization also hosts
 [verbatra/action](https://github.com/verbatra/action), the composite GitHub
 Action. Issues about the action's inputs, annotations, or job summary belong
 there.
@@ -116,16 +116,16 @@ Report bugs and feature requests as GitHub issues, in the repository that owns
 the surface:
 
 - Translation behavior, formats, providers, the CLI, the SDK, or Studio:
-  [mariokreitz/verbatra/issues](https://github.com/mariokreitz/verbatra/issues)
+  [verbatra/verbatra/issues](https://github.com/verbatra/verbatra/issues)
 - The GitHub Action's inputs, annotations, or job summary:
   [verbatra/action/issues](https://github.com/verbatra/action/issues)
 
 Do not report a security vulnerability as a public issue. Use GitHub's private
 vulnerability reporting on the affected repository:
-[the engine's security policy](https://github.com/mariokreitz/verbatra/blob/main/SECURITY.md)
+[the engine's security policy](https://github.com/verbatra/verbatra/blob/main/SECURITY.md)
 or
 [the action's security policy](https://github.com/verbatra/action/blob/main/SECURITY.md).
 
 ## License
 
-[MIT](https://github.com/mariokreitz/verbatra/blob/main/LICENSE) (c) Mario Kreitz
+[MIT](https://github.com/verbatra/verbatra/blob/main/LICENSE) (c) Mario Kreitz
