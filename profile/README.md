@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/verbatra/action/main/.github/assets/banner.webp" alt="verbatra: automated i18n translation for modern applications" />
+  <img src="https://raw.githubusercontent.com/verbatra/.github/main/profile/assets/banner.webp" alt="verbatra: automated i18n translation for modern applications" />
 </p>
 
 <h1 align="center">verbatra</h1>
@@ -45,7 +45,7 @@ verbatra is open source under the MIT license.
 
 | | What it is |
 | --- | --- |
-| [`@verbatra/cli`](https://www.npmjs.com/package/@verbatra/cli) | The `verbatra` command for the terminal and CI. Eight subcommands: `init`, `translate`, `watch`, `check`, `diff`, `export`, `import`, `studio`. |
+| [`@verbatra/cli`](https://www.npmjs.com/package/@verbatra/cli) | The `verbatra` command for the terminal and CI. It scaffolds a project, translates once or keeps translating as you edit, reports locale state without writing or spending anything, hands pending strings to a human translator and reads them back, and serves the local dashboard. The [CLI reference](https://verbatra.kreitz-webdev.de/docs/cli) lists every subcommand and flag. |
 | [`@verbatra/sdk`](https://www.npmjs.com/package/@verbatra/sdk) | The same engine as a programmatic API. verbatra is built SDK-first, so anything the CLI does you can also do in code. |
 | [`@verbatra/studio`](https://www.npmjs.com/package/@verbatra/studio) | A local web dashboard over your project, served by `verbatra studio`. It binds to `127.0.0.1` only, and provider-spending actions exist only behind an explicit `--allow-spend` flag. |
 | [`verbatra/action`](https://github.com/marketplace/actions/verbatra) | A composite GitHub Action on the GitHub Marketplace. Its `command` input runs `translate`, `check`, or `diff`; either read-only command gates a pull request on locale drift and needs no provider API key, so it also runs on a fork's pull request. Results arrive as annotations and a job summary. Consumed with `uses:`, not installed from npm. |
