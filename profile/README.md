@@ -5,27 +5,38 @@
 <h1 align="center">verbatra</h1>
 
 <p align="center">
-  Automate i18n translation and keep your locale files in sync across languages, using OpenAI, Anthropic, Gemini, DeepL, or an openai-compatible local or self-hosted model.
+  Automate i18n translation and keep your locale files in sync across languages, using OpenAI, Anthropic, Gemini, DeepL, or an openai-compatible local or self-hosted model. A result that would break a placeholder or an ICU message is withheld, not written.
 </p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/@verbatra/cli"><img src="https://img.shields.io/npm/v/@verbatra/cli?label=%40verbatra%2Fcli" alt="@verbatra/cli npm version" /></a>
   <a href="https://www.npmjs.com/package/@verbatra/sdk"><img src="https://img.shields.io/npm/v/@verbatra/sdk?label=%40verbatra%2Fsdk" alt="@verbatra/sdk npm version" /></a>
   <a href="https://www.npmjs.com/package/@verbatra/studio"><img src="https://img.shields.io/npm/v/@verbatra/studio?label=%40verbatra%2Fstudio" alt="@verbatra/studio npm version" /></a>
+  <a href="https://github.com/marketplace/actions/verbatra"><img src="https://img.shields.io/github/v/release/verbatra/action?sort=semver&amp;label=marketplace&amp;color=blue" alt="GitHub Marketplace" /></a>
   <a href="https://github.com/verbatra/verbatra/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
 </p>
 
 ## What verbatra is
 
-verbatra translates your application's locale files for you. You maintain one
-source locale by hand; on every run verbatra diffs it against a committed lock
-file and sends only the keys that are new or whose source text changed to the AI
-or machine-translation provider you configure. Translations that are already
-current are left untouched.
+verbatra translates your application's locale files, and refuses to save a bad
+translation. Every candidate value passes an integrity gate before it reaches
+disk: a result that drops or alters a placeholder, breaks ICU structure,
+collapses into runaway output, or comes back empty is withheld and reported
+rather than written. A withheld value is not recorded in the lock file either,
+so the previous translation stays intact and the key stays pending for the next
+run. For the double-brace formats (i18next, ngx-translate, and YAML) the gate
+also rejects a single-brace `{name}` token that the model invented and the
+source never had.
 
-Every candidate translation passes an integrity check before it is written. A
-result that drops or alters a placeholder, or breaks ICU structure, is withheld
-and reported rather than saved. Files round-trip in exact document key order, so
+The same gate guards provider output, an edit made by hand in Studio, and a
+value read back from a translator's workbook, so a human-typed translation is
+held to exactly the standard a machine-produced one is.
+
+Around that gate, verbatra keeps runs small. You maintain one source locale by
+hand; on every run verbatra diffs it against a committed lock file and sends
+only the keys that are new or whose source text changed to the AI or
+machine-translation provider you configure. Translations that are already
+current are left untouched. Files round-trip in exact document key order, so
 translated locale files diff cleanly.
 
 verbatra is open source under the MIT license.
@@ -37,7 +48,7 @@ verbatra is open source under the MIT license.
 | [`@verbatra/cli`](https://www.npmjs.com/package/@verbatra/cli) | The `verbatra` command for the terminal and CI. Eight subcommands: `init`, `translate`, `watch`, `check`, `diff`, `export`, `import`, `studio`. |
 | [`@verbatra/sdk`](https://www.npmjs.com/package/@verbatra/sdk) | The same engine as a programmatic API. verbatra is built SDK-first, so anything the CLI does you can also do in code. |
 | [`@verbatra/studio`](https://www.npmjs.com/package/@verbatra/studio) | A local web dashboard over your project, served by `verbatra studio`. It binds to `127.0.0.1` only, and provider-spending actions exist only behind an explicit `--allow-spend` flag. |
-| [`verbatra/action`](https://github.com/verbatra/action) | A composite GitHub Action that runs `verbatra translate --json` in CI, turns failures into annotations, and writes a job summary. Consumed with `uses:`, not installed from npm. |
+| [`verbatra/action`](https://github.com/marketplace/actions/verbatra) | A composite GitHub Action on the GitHub Marketplace. Its `command` input runs `translate`, `check`, or `diff`; either read-only command gates a pull request on locale drift and needs no provider API key, so it also runs on a fork's pull request. Results arrive as annotations and a job summary. Consumed with `uses:`, not installed from npm. |
 
 ## Where the code lives
 
@@ -48,8 +59,11 @@ belong.
 
 This organization also hosts
 [verbatra/action](https://github.com/verbatra/action), the composite GitHub
-Action. Issues about the action's inputs, annotations, or job summary belong
-there.
+Action, which is published on the
+[GitHub Marketplace](https://github.com/marketplace/actions/verbatra) and is
+referenced as `verbatra/action@v1` or, for an immutable pin, by commit SHA. The
+action's README carries the workflow examples. Issues about its inputs,
+annotations, or job summary belong in that repository.
 
 ## Quick start
 
@@ -74,8 +88,10 @@ npx verbatra translate
 Gemini has a real free tier, so it is the cheapest way to try verbatra. Pass
 `anthropic`, `openai`, or `deepl` to `--provider` instead if you prefer one of
 those. `verbatra check` and `verbatra diff` report locale state without writing
-anything and exit non-zero when a locale is missing or stale, which makes them a
-read-only CI gate.
+anything and without constructing a provider, so they need no API key at all:
+`check` exits non-zero when any locale has missing or stale keys, and `diff`
+exits non-zero when any locale has pending changes. That makes either one a
+read-only CI gate, in the terminal or through the GitHub Action.
 
 The full walkthrough is
 [Your first translation](https://verbatra.kreitz-webdev.de/docs/your-first-translation).
