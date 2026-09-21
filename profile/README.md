@@ -64,9 +64,7 @@ annotations, or job summary belong in that repository.
 
 ## Quick start
 
-Needs Node.js `>=22.14.0`. verbatra installs as a development dependency, which
-puts the `verbatra` binary in `node_modules/.bin` rather than on your PATH, so
-the commands below call it through `npx`:
+Needs Node.js `>=22.14.0`.
 
 ```bash
 # 1. Install as a dev dependency
@@ -75,21 +73,20 @@ npm install --save-dev @verbatra/cli
 # 2. Scaffold verbatra.config.ts and .env.example (choose your provider)
 npx verbatra init --provider gemini
 
-# 3. Provide the provider's API key. init created .env.example and gitignored
-#    .env, so you can set it in .env, or export it (Gemini shown):
+# 3. Provide the provider's API key, in .env or exported (Gemini shown)
 export GEMINI_API_KEY=your-key-here
 
 # 4. Translate every target locale once
 npx verbatra translate
 ```
 
-Gemini has a real free tier, so it is the cheapest way to try verbatra. Pass
-`anthropic`, `openai`, `deepl`, or `google-translate` to `--provider` instead if
-you prefer one of those. `verbatra check` and `verbatra diff` report locale state
-without writing anything and without constructing a provider, so they need no API
-key at all: `check` exits non-zero when any locale has missing or stale keys, and
-`diff` exits non-zero when any locale has pending changes. That makes either one
-a read-only CI gate, in the terminal or through the GitHub Action.
+A dev-dependency install puts the `verbatra` binary in `node_modules/.bin` rather than on your PATH, so the commands above call it through `npx`, which runs the locally installed binary whichever package manager put it there. Gemini is the cheapest way to try verbatra, because its API has a real free tier: create a key at [Google AI Studio](https://aistudio.google.com/apikey) with no billing setup. Pass `anthropic`, `openai`, `deepl`, or `google-translate` to `--provider` instead if you prefer one of those. pnpm users need one extra step before installing; see [Troubleshooting](https://verbatra.kreitz-webdev.de/docs/troubleshooting).
+
+`verbatra check` and `verbatra diff` report locale state without writing
+anything and without constructing a provider, so they need no API key at all:
+`check` exits non-zero when any locale has missing or stale keys, and `diff`
+exits non-zero when any locale has pending changes. That makes either one a
+read-only CI gate, in the terminal or through the GitHub Action.
 
 The full walkthrough is
 [Your first translation](https://verbatra.kreitz-webdev.de/docs/your-first-translation).
