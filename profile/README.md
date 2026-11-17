@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/verbatra/.github/main/profile/assets/banner.webp" alt="verbatra: Automated i18n Translation for Modern Applications" />
+  <img src="https://raw.githubusercontent.com/verbatra/.github/main/profile/assets/banner.webp" alt="verbatra: open source i18n automation" />
 </p>
 
 <h1 align="center">verbatra</h1>
 
 <p align="center">
-  Automate i18n translation: only what changed gets translated, and nothing that breaks a placeholder gets written.
+  Open source i18n automation: translate only what changed, gate CI on drift, keep placeholders intact. CLI, SDK, Studio, MCP server and GitHub Action.
 </p>
 
 <p align="center">
